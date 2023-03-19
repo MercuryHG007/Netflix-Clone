@@ -11,7 +11,9 @@ function HomeScreen() {
   return (
     <div className='homeScreen'>
         {/* NAVBAR */}
-        <Navbar />
+        <Navbar 
+          isLoggedIn={true}
+        />
 
         {/* BANNER */}
         <Banner />

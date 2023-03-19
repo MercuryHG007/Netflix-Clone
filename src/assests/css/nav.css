@@ -45,7 +45,7 @@
     width: 150px;
     object-fit: contain;
     padding-left: 20px ;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .nav_avatar{
@@ -54,5 +54,17 @@
     width: 30px;
     height: 30px;
     border-radius: 2px;
+    cursor: pointer;
+}
+
+.nav_login_button{
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #e50914;
+    border: none;
+    font-size: 1rem;
     cursor: pointer;
 }
