@@ -16,7 +16,8 @@ import {
 import { auth } from './firebase';
 
 import HomeScreen from './screens/HomeScreen.js';
-import LoginScreen from './screens/LoginScreen';
+import LoginScreen from './screens/LoginScreen.js';
+import ProfileScreen from './screens/ProfileScreen.js';
 
 import './App.css';
 
@@ -39,11 +40,11 @@ function App() {
       }
       else{
         // Logged Out
-        dispatch(logout)
+        dispatch(logout())
       }
     })
     return unsubscribe;
-  },[])
+  },[dispatch])
 
   return (
     <div className="app">
@@ -53,10 +54,15 @@ function App() {
           ):(
             <Routes>
               <Route
+                path='/profile'
+                element={
+                  <ProfileScreen />
+                }
+              />
+              <Route
                 path='/'
                 element={
-                  <HomeScreen
-                  />
+                  <HomeScreen/>
                 }
               />
             </Routes>

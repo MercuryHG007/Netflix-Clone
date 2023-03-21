@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import '../assests/css/signIn.css'
-import { auth } from '../firebase.js';
+import db, { auth } from '../firebase.js';
 
 function SignIn() {
 
@@ -10,13 +10,20 @@ function SignIn() {
 
     const registerHandler = (e) => {
         e.preventDefault();
+        const utcDate = new Date(Date.now())
+        const user = {
+            email: emailRef.current.value,
+            plan: "Prod_1",
+            purchased: utcDate.toLocaleString('en-IN', { timeZone: 'IST' })
+        }
         auth
             .createUserWithEmailAndPassword(
-                emailRef.current.value,
+                user.email,
                 passRef.current.value
             )
             .then((authUser)=>{
                 console.log(authUser)
+                db.collection('users').add(user)
             })
             .catch((err) => {
                 alert(err.message)
