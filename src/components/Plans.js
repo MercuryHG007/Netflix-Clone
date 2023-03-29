@@ -3,6 +3,7 @@ import '../assests/css/plans.css'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../features/userSlice'
 import db from '../firebase'
+import {updateDoc} from 'firebase/firestore'
 
 function Plans() {
 
@@ -11,7 +12,7 @@ function Plans() {
     const [products, setProducts] = useState([])
     const [user, setUser] = useState({})
 
-    async function updatePlan(planID,dbUser){
+    async function updatePlan(planID, dbUser){
         // db.collection('users').doc(dbUser[0])
         //     .get()
         //     .then((querySnapshot) => {
@@ -27,23 +28,35 @@ function Plans() {
         // })
         // console.log('Plan Updated', res)
 
-        db.collection('users')
-            .where("email", '==', stateUser.email)
-            .get()
-            .then((querySnapshot) => {
-                const DBUser = {};
-                querySnapshot.forEach(async (userDoc) => {
-                    DBUser[userDoc.id].plan = planID
-                })
+        // db.collection('users')
+        //     .where("email", '==', stateUser.email)
+        //     .get()
+        //     .then((querySnapshot) => {
+        //         const DBUser = {};
+        //         querySnapshot.forEach(async (userDoc) => {
+        //             console.log("querySnapshot",userDoc.data())
+        //             DBUser[userDoc.id] = userDoc.data()
+        //             user.set({plan: planID})
+        //         })
+        //     })
+        
+        const UserRef = db.collection('users').doc(dbUser[0])
+                .get()
+        console.log('UserRef', UserRef)
+        updateDoc(UserRef,{plan: planID})
+            .then(
+                console.log("UserUpdated")
+            )
+            .catch(err => {
+                console.log(err)
             })
-        console.log(db.collection('users').doc(dbUser[0]).get())
         console.log("Updated User => ",Object.entries(user)[0][1])
     }
 
     function handleSubscribe(e){
         const planID = e.target.value
         const dbUser = Object.entries(user)[0]
-        console.log(planID, dbUser)
+        console.log('HandleSubscribeFunc', planID, dbUser)
         
         // window.open(products[planID].Payment_Link, '_blank')
         updatePlan(planID, dbUser)
