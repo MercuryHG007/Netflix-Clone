@@ -58,7 +58,7 @@ function Plans() {
         const dbUser = Object.entries(user)[0]
         console.log('HandleSubscribeFunc', planID, dbUser)
         
-        // window.open(products[planID].Payment_Link, '_blank')
+        window.open(products[planID].Payment_Link, '_blank')
         updatePlan(planID, dbUser)
         // setTimeout(updatePlan(planID, dbUser), 10000)
     }
